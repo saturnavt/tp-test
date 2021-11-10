@@ -4,6 +4,8 @@ TP-TEST una red social.
 
 ## Instalación
 
+Descarga nodejs [nodejs] (https://nodejs.org/es/).
+
 Utilice el administrador de paquetes [npm] (https://www.npmjs.com/) para instalar las dependencias.
 
 ## Primero las dependencias del back
@@ -28,7 +30,21 @@ npm install
 
 # Y por ultimo corremos el front
 npm run dev
+
+# Si da algun error de react app intentar instalar el siguiente paquete y volver a correr la app
+npm install create-react-app
 ```
+
+## La base de datos que se usa es sqlite
+
+
+Si quieres ver la base de datos te recomiendo descargar la siquiete app
+(https://sqlitestudio.pl/)
+
+Al descargar la app y ejecutarla podras darle en cargar archivo y podrias encontrar el archivo de sqlite dentro de la carpeta /back/src/prisma
+el archivo se llama dev.db
+
+
 
 ## Contribuyendo
 
