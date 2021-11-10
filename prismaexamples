@@ -1,0 +1,6 @@
+npm install @prisma/client
+npm install prisma --save-dev
+npx prisma init
+#movemos la carpeta prisma adentro de src
+npx prisma migrate dev --schema src/prisma/schema.prisma
+npx prisma generate --schema src/prisma/schema.prisma
