@@ -44,7 +44,7 @@ model Comments {
   postId         Int
   users          Users            @relation(fields: [userId], references: [id])
   userId         Int
-  createdAt      Int
+  createdAt      String
   Comments_likes Comments_likes[]
 }
 
