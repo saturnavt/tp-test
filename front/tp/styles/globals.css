@@ -22,5 +22,10 @@ a {
   align-items: center;
   text-align: center;
   min-height: 100vh;
+  height: 100%;
   border-radius: 2px;
+  background-image: url('https://images.pexels.com/photos/1851415/pexels-photo-1851415.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+  background-repeat: 'no-repeat';
+  background-size: cover;
+  
 }

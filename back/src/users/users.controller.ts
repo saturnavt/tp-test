@@ -13,12 +13,20 @@ export class UsersController {
 
     @Post('/login')
     login(@Body() body) {
-      return this.usersService.login(body);
+        return this.usersService.login(body);
     }
 
     @UseGuards(AuthGuard)
     @Get()
     async findAll() {
         return await this.usersService.findAll();
+    }
+
+    @UseGuards(AuthGuard)
+    @Get('/check-token')
+    async checkToken() {
+        return {
+            "token": true
+        };
     }
 }

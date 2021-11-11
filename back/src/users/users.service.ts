@@ -39,9 +39,15 @@ export class UsersService {
         );
 
         if (checkPassword == true) {
-            return this.jwtService.generateToken(body.username);
+            return {
+                token: this.jwtService.generateToken(body.username),
+                userId: user.id,
+                userName: user.fullname
+            };
         } else {
-            return 'Error';
+            return {
+                "Error": "Datos incorrectos"
+            };
         }
     }
 

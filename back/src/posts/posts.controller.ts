@@ -16,4 +16,11 @@ export class PostsController {
     async findAll() {
         return await this.postsService.findAll();
     }
+
+    @UseGuards(AuthGuard)
+    @Post('i-like')
+    async findAllILike(@Body() body) {
+        return await this.postsService.findAllILike(body.userId);
+    }
+
 }

@@ -28,7 +28,6 @@ model Users {
 
 model Posts {
   id          Int           @id @default(autoincrement())
-  title       String
   description String
   users       Users         @relation(fields: [userId], references: [id])
   userId      Int

@@ -9,7 +9,6 @@ export class PostsService {
         return await this.prismaService.posts.create(
             {
                 data: {
-                    title: data.title,
                     description: data.description,
                     userId: data.userId,
                     createdAt: new Date().toISOString()
@@ -19,6 +18,41 @@ export class PostsService {
     }
 
     async findAll() {
-        return await this.prismaService.posts.findMany();
+        return await this.prismaService.posts.findMany(
+            {
+                include: {
+                    users: {
+
+                    }
+                },
+                orderBy: {
+                    id: 'desc'
+                }
+            }
+        );
+    }
+
+    async findAllILike(userId) {
+        return await this.prismaService.posts_likes.findMany(
+            {
+                where: {
+                    userId,
+                    AND:{
+                        likes: true
+                    }
+                },
+                select: {
+                    posts: {
+                        include:{
+                            users: {}
+                        }
+                    }
+                },
+                orderBy: {
+                    id: 'desc'
+                },
+                take: 10,
+            }
+        );
     }
 }
