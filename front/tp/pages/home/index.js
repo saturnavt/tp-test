@@ -4,6 +4,7 @@ import Menu from '../../components/menu';
 import Posts from '../../components/posts';
 import PostsILike from '../../components/post-i-like';
 import Container from 'react-bootstrap/Container';
+import Publicity from '../../components/publicity';
 
 export default function Home() {
     return (
@@ -13,10 +14,10 @@ export default function Home() {
                 <br></br>
                 <Row>
                     <Col>
-                        <h4>Publicaciones destacadas</h4>
+                        <h4>Publicidad</h4>
                         <br></br>
                         <Col>
-                            <Posts />
+                            <Publicity />
                         </Col>
                         <br></br>
                     </Col>

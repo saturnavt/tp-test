@@ -65,7 +65,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 
-export default function PostsILike() {
+export default function MyPosts() {
     const router = useRouter();
     const [post, setPost] = useState('');
 
@@ -202,6 +202,7 @@ export default function PostsILike() {
         }
 
     }
+
     const handlePostLikes = async (postId) => {
         const userData = {
             "likes": true,
@@ -263,7 +264,7 @@ export default function PostsILike() {
             "userId": parseInt(localStorage.getItem('id'))
         };
         try {
-            let response = await fetch('http://localhost:3001/posts/i-like', {
+            let response = await fetch('http://localhost:3001/posts/my-posts', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -272,7 +273,7 @@ export default function PostsILike() {
                 body: JSON.stringify(userData)
             });
             let responseData = await response.json();
-
+            console.log(responseData)
             if (responseData.message) {
             } else {
                 setPostDatas(responseData)
@@ -323,6 +324,24 @@ export default function PostsILike() {
 
     return (
         <div>
+            <TextField
+                id="standard-multiline-static"
+                label="Di algo"
+                multiline
+                rows={4}
+                variant="standard"
+
+                style={{ minWidth: '100%' }}
+
+                onChange={post => setPost(post.target.value)}
+                value={post}
+            />
+            <br></br>
+            <br></br>
+            <Button variant="contained" style={{ backgroundColor: '#1785E1', color: '#ffffff', borderRadius: 50, width: '90%' }} onClick={handleNewPost}>
+                Publicar
+            </Button>
+            <br></br>
             <br></br>
             {
                 postsdata.map((data, index) => {
@@ -332,32 +351,32 @@ export default function PostsILike() {
                                 <CardHeader
                                     avatar={
                                         <Avatar sx={{ bgcolor: '#1785E1' }} aria-label="recipe">
-                                            <Avatar alt="Remy Sharp" src={data.posts.users.avatar} />
+                                            <Avatar alt="Remy Sharp" src={data.users.avatar} />
 
-                                            {/* {data.posts.users.fullname.charAt(0)} */}
+                                            {/* {data.users.fullname.charAt(0)} */}
                                         </Avatar>
                                     }
-                                    title={data.posts.users.fullname}
-                                    subheader={getFormatedStringFromDays(data.posts.createdAt)}
+                                    title={data.users.fullname}
+                                    subheader={getFormatedStringFromDays(data.createdAt)}
                                 />
                                 <CardContent>
                                     {/* <Typography variant="h5" component="div">
-                                        {data.posts.users.fullname}
+                                        {data.users.fullname}
                                     </Typography>
                                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                        hace {getFormatedStringFromDays(data.posts.createdAt)}
+                                        hace {getFormatedStringFromDays(data.createdAt)}
                                     </Typography> */}
                                     <Typography variant="body2">
-                                        {data.posts.description}
+                                        {data.description}
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <IconButton aria-label="add to favorites" onClick={() => handlePostLikes(data.posts.id)}>
+                                    <IconButton aria-label="add to favorites" onClick={() => handlePostLikes(data.id)}>
                                         {
 
                                             (postsLikes) ?
                                                 (
-                                                    findMyLikes(data.posts.id)
+                                                    findMyLikes(data.id)
                                                 ) :
                                                 (
                                                     <FavoriteIcon />
@@ -368,8 +387,8 @@ export default function PostsILike() {
                                     </IconButton>
 
                                     <Accordion
-                                        expanded={expanded === data.posts.id}
-                                        onChange={handleChange(data.posts.id)}
+                                        expanded={expanded === data.id}
+                                        onChange={handleChange(data.id)}
                                         style={{ border: '0px solid', borderColor: '#ffffff' }}
                                     >
                                         <AccordionSummary
@@ -405,8 +424,7 @@ export default function PostsILike() {
                                                                 <CardHeader
                                                                     avatar={
                                                                         <Avatar sx={{ bgcolor: '#1785E1' }} aria-label="recipe">
-                                                                            <Avatar alt="Remy Sharp" src={data.posts.users.avatar} />
-
+                                                                            <Avatar alt="Remy Sharp" src={data.users.avatar} />
 
                                                                             {/* {data.users.fullname.charAt(0)} */}
                                                                         </Avatar>

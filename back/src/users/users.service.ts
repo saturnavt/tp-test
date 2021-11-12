@@ -26,6 +26,23 @@ export class UsersService {
         )
     }
 
+    async update(data) {
+        return await this.prismaService.users.update(
+            {
+                where: {
+                    id: data.userId,
+                },
+                data: {
+                    avatar: data.avatar,
+                    fullname: data.fullname,
+                    age: data.age,
+                    dateofborn: data.dateofborn,
+                    email: data.email
+                }
+            }
+        )
+    }
+
     async login(body) {
         const user = await this.prismaService.users.findFirst({
             where: {
@@ -53,5 +70,13 @@ export class UsersService {
 
     async findAll() {
         return await this.prismaService.users.findMany();
+    }
+
+    async findOne(userId) {
+        return await this.prismaService.users.findUnique({
+            where: {
+                id: userId
+            }
+        });
     }
 }

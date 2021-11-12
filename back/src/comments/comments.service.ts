@@ -20,4 +20,20 @@ export class CommentsService {
     async findAll() {
         return await this.prismaService.comments.findMany();
     }
+
+    async findAllById(body) {
+        return await this.prismaService.comments.findMany({
+            where: {
+                postId: body.postId
+            },
+            include: {
+                users: {
+
+                }
+            },
+            orderBy: {
+                id: 'desc'
+            }
+        });
+    }
 }

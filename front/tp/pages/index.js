@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import TextField from '@mui/material/TextField';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-
+import Link from 'next/link';
 
 export default function Home() {
   const router = useRouter();
@@ -66,7 +66,15 @@ export default function Home() {
         <TextField id="standard-basic" label="Usuario" variant="standard" style={{ width: '90%' }} onChange={username => setUsername(username.target.value)} />
         <br></br>
         <br></br>
-        <TextField id="standard-basic" label="Contraseña" variant="standard" style={{ width: '90%' }} onChange={password => setPassword(password.target.value)} />
+        <TextField id="standard-basic" label="Contraseña" type="password" variant="standard" style={{ width: '90%' }} onChange={password => setPassword(password.target.value)} />
+        <br></br>
+        <br></br>
+        <Link href="/register">
+          <Button variant="contained" style={{ backgroundColor: 'transparent', color: '#000000', borderRadius: 80, width: '30%' }}>
+            Registrarse
+          </Button>
+        </Link>
+
         <br></br>
         <br></br>
         <Button variant="contained" style={{ backgroundColor: '#1785E1', color: '#ffffff', borderRadius: 50, width: '90%' }} onClick={handleLogin}>

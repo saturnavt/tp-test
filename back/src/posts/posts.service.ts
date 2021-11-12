@@ -32,18 +32,54 @@ export class PostsService {
         );
     }
 
+    async findAllUserPosts(userId) {
+        return await this.prismaService.posts.findMany(
+            {
+                where: {
+                    userId: userId
+                },
+                include: {
+                    users: {
+
+                    }
+                },
+                orderBy: {
+                    id: 'desc'
+                }
+            }
+        );
+    }
+
+    async findAllOtherUserPosts(userId) {
+        return await this.prismaService.posts.findMany(
+            {
+                where: {
+                    userId: { notIn: [userId] }
+                },
+                include: {
+                    users: {
+
+                    }
+                },
+                orderBy: {
+                    id: 'desc'
+                }
+            }
+        );
+    }
+
     async findAllILike(userId) {
         return await this.prismaService.posts_likes.findMany(
             {
                 where: {
                     userId,
-                    AND:{
+                    AND: {
                         likes: true
                     }
                 },
                 select: {
                     posts: {
-                        include:{
+                        include: {
                             users: {}
                         }
                     }

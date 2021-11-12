@@ -16,4 +16,10 @@ export class CommentsController {
     async findAll() {
         return await this.commentsService.findAll();
     }
+
+    @UseGuards(AuthGuard)
+    @Post('/filter')
+    async findAllById(@Body() body) {
+        return await this.commentsService.findAllById(body);
+    }
 }

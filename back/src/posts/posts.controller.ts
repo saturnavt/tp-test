@@ -12,6 +12,18 @@ export class PostsController {
     }
 
     @UseGuards(AuthGuard)
+    @Post('/my-posts')
+    async findAllUserPosts(@Body() body) {
+        return await this.postsService.findAllUserPosts(body.userId);
+    }
+
+    @UseGuards(AuthGuard)
+    @Post('/other-posts')
+    async findAllOtherUserPosts(@Body() body) {
+        return await this.postsService.findAllOtherUserPosts(body.userId);
+    }
+
+    @UseGuards(AuthGuard)
     @Get()
     async findAll() {
         return await this.postsService.findAll();

@@ -16,6 +16,16 @@ export class UsersController {
         return this.usersService.login(body);
     }
 
+    @Post('/update')
+    update(@Body() body) {
+        return this.usersService.update(body);
+    }
+
+    @Post('/profile')
+    profile(@Body() body) {
+        return this.usersService.findOne(body.userId);
+    }
+
     @UseGuards(AuthGuard)
     @Get()
     async findAll() {
