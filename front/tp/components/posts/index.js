@@ -20,6 +20,10 @@ import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Avatar from '@mui/material/Avatar';
 import CardHeader from '@mui/material/CardHeader';
 import Stack from '@mui/material/Stack';
+import Router from "next/router";
+
+//zustand 
+import useStore from "../zustand";
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -74,6 +78,10 @@ export default function Posts() {
     const [postsLikes, setPostlikes] = useState([]);
 
     const [expanded, setExpanded] = useState("panel1");
+
+    //zustand
+    const iLike = useStore(state => state.iLike);
+    const whenRemoveILike = useStore(state => state.whenRemoveILike);
 
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
@@ -232,7 +240,8 @@ export default function Posts() {
                 }
                 await getPosts();
                 await getPostsLikes();
-
+                iLike();
+                // Router.reload();
                 // window.location.reload(false);
 
             }
@@ -319,7 +328,7 @@ export default function Posts() {
     useEffect(() => {
         getPosts();
         getPostsLikes();
-    }, []);
+    }, [whenRemoveILike]);
 
 
     return (
@@ -354,7 +363,7 @@ export default function Posts() {
                                             <Avatar alt="Remy Sharp" src={data.users.avatar} />
                                             {/* {data.users.fullname.charAt(0)} */}
                                         </Avatar>
-                                        
+
                                     }
                                     title={data.users.fullname}
                                     subheader={getFormatedStringFromDays(data.createdAt)}

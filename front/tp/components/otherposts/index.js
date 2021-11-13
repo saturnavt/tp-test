@@ -19,6 +19,8 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Avatar from '@mui/material/Avatar';
 import CardHeader from '@mui/material/CardHeader';
+//zustand 
+import useStore from "../zustand";
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -73,6 +75,10 @@ export default function OtherPosts() {
     const [postsLikes, setPostlikes] = useState([]);
 
     const [expanded, setExpanded] = useState("panel1");
+
+    //zustand
+    const iLike = useStore(state => state.iLike);
+    const whenRemoveILike = useStore(state => state.whenRemoveILike);
 
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
@@ -231,6 +237,7 @@ export default function OtherPosts() {
                 }
                 await getPosts();
                 await getPostsLikes();
+                iLike();
             }
 
         } catch (error) {
@@ -273,7 +280,7 @@ export default function OtherPosts() {
                 body: JSON.stringify(userData)
             });
             let responseData = await response.json();
-            console.log(responseData)
+
             if (responseData.message) {
             } else {
                 setPostDatas(responseData)
@@ -319,7 +326,7 @@ export default function OtherPosts() {
     useEffect(() => {
         getPosts();
         getPostsLikes();
-    }, []);
+    }, [whenRemoveILike]);
 
 
     return (

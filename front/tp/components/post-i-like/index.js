@@ -19,6 +19,8 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Avatar from '@mui/material/Avatar';
 import CardHeader from '@mui/material/CardHeader';
+//zustand 
+import useStore from "../zustand";
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -73,6 +75,10 @@ export default function PostsILike() {
     const [postsLikes, setPostlikes] = useState([]);
 
     const [expanded, setExpanded] = useState("panel1");
+
+    //zustand
+    const iLikeData = useStore(state => state.iLikeData)
+    const removeILike = useStore(state => state.removeILike);
 
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
@@ -230,6 +236,7 @@ export default function PostsILike() {
                 }
                 await getPosts();
                 await getPostsLikes();
+                removeILike();
             }
 
         } catch (error) {
@@ -318,7 +325,7 @@ export default function PostsILike() {
     useEffect(() => {
         getPosts();
         getPostsLikes();
-    }, []);
+    }, [iLikeData]);
 
 
     return (
@@ -405,7 +412,7 @@ export default function PostsILike() {
                                                                 <CardHeader
                                                                     avatar={
                                                                         <Avatar sx={{ bgcolor: '#1785E1' }} aria-label="recipe">
-                                                                            <Avatar alt="Remy Sharp" src={data.posts.users.avatar} />
+                                                                            <Avatar alt="Remy Sharp" src={data.users.avatar} />
 
 
                                                                             {/* {data.users.fullname.charAt(0)} */}
